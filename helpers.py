@@ -39,6 +39,23 @@ def standardize(x):
     return x, mean_x, std_x
 
 
+def sample_data(y, x, seed, size_samples):
+    """sample from dataset."""
+    np.random.seed(seed)
+    num_observations = y.shape[0]
+    random_permuted_indices = np.random.permutation(num_observations)
+    y = y[random_permuted_indices]
+    x = x[random_permuted_indices]
+    return y[:size_samples], x[:size_samples]
+
+
+def de_standardize(x, mean_x, std_x):
+    """Reverse the procedure of standardization."""
+    x = x * std_x
+    x = x + mean_x
+    return x
+
+
 def build_model_data(height, weight):
     """Form (y,tX) to get regression data in matrix form."""
     y = weight
